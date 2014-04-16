@@ -9,7 +9,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         'gitbook': {
             development: {
-                input: "./",
+                input: "./en",
                 title: "Ramayana ",
                 description: "The Ramayana book.",
                 github: "svenkatreddy/Ramayana_Book"
@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         'http-server': {
             'dev': {
                 // the server root directory
-                root: '_book',
+                root: './en/_book',
 
                 port: 4000,
                 host: "127.0.0.1",
