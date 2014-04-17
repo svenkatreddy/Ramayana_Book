@@ -1,5 +1,5 @@
 * [Bāla Kāṇḍa - Book of childhood ](bala_kanda/README.md)
-	* [Verse1 Sample](bala_kanda/verse1.md)
+	* [Chapter 1 - Nárad briefs Valmiki about Rama & Ramayana](bala_kanda/chapter1.md)
 	* [Verse2 Sample](bala_kanda/verse2.md)
 	* [Verse3 Sample](bala_kanda/verse3.md)
 * [Ayodhya Kāṇḍa - Book of ayodhya ](bala_kanda/README.md)
