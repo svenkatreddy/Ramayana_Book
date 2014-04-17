@@ -2,3 +2,5 @@ node_modules
 .grunt
 /_book/
 /en/_book/
+/tel/_book/
+/san/_book/
