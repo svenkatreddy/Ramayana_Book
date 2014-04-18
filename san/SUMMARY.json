@@ -1,0 +1,61 @@
+{
+  "books": [
+    {
+     "name" : "bala",
+     "sanskrit_name" : "बालकाण्डम्",
+     "english_chapters" : [
+       "Nárad briefs Valmiki about Rama & Ramayana",
+       "Valmiki gets divine guidance to compile the epic"
+      ],
+      "total_chapters" : 77    
+    },
+    {
+     "name" : "ayodhya",
+     "sanskrit_name" : "अयोध्याकाण्डम्डम्",
+     "english_chapters" : [
+      "test"   
+      ],
+      "total_chapters" : 119  
+    },
+    {
+     "name" : "aranya",
+     "sanskrit_name" : "अरण्यकाण्डम्डम्",
+     "chapters" : [
+      "1"   
+      ],
+      "total_chapters" : 75   
+    },
+    {
+     "name" : "kishkindha",
+     "sanskrit_name" : "किष्किन्धाकाण्डम्डम्",
+     "chapters" : [
+      "1"   
+      ],
+      "total_chapters" : 67
+    },
+    {
+     "name" : "sundara",
+     "sanskrit_name" : "सुन्दरकाण्डम्डम्",
+     "chapters" : [
+      "1"   
+      ],
+      "total_chapters" : 68
+    },
+    {
+     "name" : "yuddha",
+     "sanskrit_name" : "युद्धकाण्डम्डम्",
+     "chapters" : [
+      "1"   
+      ],
+      "total_chapters" : 128
+    },
+    {
+     "name" : "uttara",
+     "sanskrit_name" : "उत्तरकाण्डम्डम्",
+     "chapters" : [
+      "1"   
+      ],
+      "total_chapters" : 111
+    }
+  ]
+}

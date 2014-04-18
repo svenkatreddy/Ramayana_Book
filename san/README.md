@@ -12,6 +12,14 @@ Ramayana tells the story of Rama (an avatar of the Hindu supreme-god Vishnu), wh
 
 The seven kandas (books or maybe chapters or phases) of Ramayana are as follows:
 
+	- बालकाण्डम्
+	- अयोध्याकाण्डम्
+	- अरण्यकाण्डम्
+	- किष्किन्धाकाण्डम्
+	- सुन्दरकाण्डम्
+	- युद्धकाण्डम्
+	- उत्तरकाण्डम्
+
   - Bāla Kāṇḍa (Book of childhood)
   - Ayodhya Kāṇḍa (Book of ayodhya)3
   - Araṇya Kāṇḍa (Book of the forest)
