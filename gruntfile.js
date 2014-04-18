@@ -8,13 +8,20 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         'gitbook': {
-            development: {
+            english: {
                 input: "./en",
+                title: "Ramayana",
+                description: "The Ramayana book.",
+                github: "svenkatreddy/Ramayana_Book"
+            },
+            sanskrit: {
+                input: "./san",
                 title: "Ramayana",
                 description: "The Ramayana book.",
                 github: "svenkatreddy/Ramayana_Book"
             }
         },
+
         'gh-pages': {
             options: {
                 base: '_book'
@@ -25,9 +32,23 @@ module.exports = function (grunt) {
             files: '_book'
         },
         'http-server': {
-            'dev': {
+            'english': {
                 // the server root directory
                 root: './en/_book',
+
+                port: 4000,
+                host: "127.0.0.1",
+
+                showDir : true,
+                autoIndex: true,
+                defaultExt: "html",
+
+                //wait or not for the process to finish
+                runInBackground: false
+            },
+            'sanskrit': {
+                // the server root directory
+                root: './san/_book',
 
                 port: 4000,
                 host: "127.0.0.1",
@@ -43,9 +64,20 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
-        'gitbook',
-        'http-server'
+        'gitbook:english',
+        'http-server:english'
     ]);
+
+    grunt.registerTask('sanskrit', [
+        'gitbook:sanskrit',
+        'http-server:sanskrit'
+    ]);
+
+     grunt.registerTask('english', [
+        'gitbook:english',
+        'http-server:english'
+    ]);
+
     grunt.registerTask('publish', [
         'gitbook',
         'gh-pages',
