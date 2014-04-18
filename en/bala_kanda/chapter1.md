@@ -13,4 +13,3 @@ Bala Kanda ()
 
 ###Translation###
 
-~~Please continue~~
