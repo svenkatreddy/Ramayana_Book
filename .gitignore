@@ -4,3 +4,5 @@ node_modules
 /en/_book/
 /tel/_book/
 /san/_book/
+chapters*.js
+SUMMARY.js
