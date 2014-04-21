@@ -6,3 +6,4 @@ node_modules
 /san/_book/
 chapters*.js
 SUMMARY.js
+*_book

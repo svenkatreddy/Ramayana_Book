@@ -5,6 +5,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-gh-pages');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-http-server');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.initConfig({
         'gitbook': {
@@ -24,12 +25,12 @@ module.exports = function (grunt) {
 
         'gh-pages': {
             options: {
-                base: '_book'
+                base: 'san_book'
             },
-            src: ['**']
+            src: ['/san/_book/**/*']
         },
         'clean': {
-            files: '_book'
+            files:'*_book'
         },
         'http-server': {
             'english': {
@@ -60,13 +61,35 @@ module.exports = function (grunt) {
                 //wait or not for the process to finish
                 runInBackground: false
             }
+        },
+
+        copy: {
+         sanskrit: {
+            files: [
+              // includes files within path
+              {
+                expand: true,
+                cwd: 'san/_book/',
+                src: ['**/**','!SUMMARY.js','!*kanda/*.json','!*kanda/chapters*.js'], 
+                dest: 'san_book/'
+              }
+            ]
+          },
+          english: {
+            files: [
+              // includes files within path
+              {
+                expand: true,
+                cwd: 'en/_book/',
+                src: ['**/**','!SUMMARY.js','!*kanda/*.json','!*kanda/chapters*.js'], 
+                dest: 'en_book/'
+              }
+            ]
+          }
         }
+
     });
 
-    grunt.registerTask('test', [
-        'gitbook:english',
-        'http-server:english'
-    ]);
 
     grunt.registerTask('sanskrit', [
         'gitbook:sanskrit',
@@ -80,8 +103,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('publish', [
         'gitbook',
-        'gh-pages',
-        'clean'
+        'clean',
+        'copy:sanskrit'    
     ]);
+
     grunt.registerTask('default', 'gitbook');
 };
