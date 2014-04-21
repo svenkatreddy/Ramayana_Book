@@ -7,3 +7,4 @@ node_modules
 chapters*.js
 SUMMARY.js
 *_book
+*.bat
