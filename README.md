@@ -1,4 +1,4 @@
-Ramayana_Book
+Ramayana Book
 =============
 
 **Introduction:**
@@ -10,10 +10,10 @@ The Ramayana consists of 24,000 verses in seven books (kāṇḍas) and 500 cant
 
 Ramayana tells the story of Rama (an avatar of the Hindu supreme-god Vishnu), whose wife Sita is abducted by Ravana, the king of Lanka (current day Sri Lanka). Thematically, the Ramayana explores human values and the concept of dharma.
 
-The seven kandas (books or maybe chapters or phases) of Ramayana are as follows:
+The seven kandas (books) of Ramayana are as follows:
 
   - Bāla Kāṇḍa (Book of childhood)
-  - Ayodhya Kāṇḍa (Book of ayodhya)3
+  - Ayodhya Kāṇḍa (Book of ayodhya)
   - Araṇya Kāṇḍa (Book of the forest)
   - Kishkindha Kāṇḍa (Book of the monkey kingdom)
   - Sundara Kāṇḍa (Book of beauty)
@@ -22,17 +22,21 @@ The seven kandas (books or maybe chapters or phases) of Ramayana are as follows:
 
 **Development**
 
-I/we would like to create a portable version of epic Ramayana in any format (html,pdf,word etc) to preserve one of the best books ever written in hindu mythology.
+Goal of this repo is to create a portable version of epic Ramayana in any format (html,pdf,word, JSON, API etc) to preserve one of the best books ever written in hindu mythology.
 
-We would appreciate if anyone could provide good resources to start.
+We would appreciate if anyone could provide good resources.
 
 ### Presently working on ###
 
-  -  Instead of writing .md files for all the slokas, we would prefer to put in .json file and node script to convert to .md ( This way we can even be sure that we could able to create an API for Ramayana so that anyone can use in their application )
-  -  (sanskrit version) developing / writing balakanda chapter1.json and node script to convert to md
+  - Collecting Resources for translating sanskrit version to english, telugu ( Any help is greatly appreciated )
+  - Initial Api Version of the book ( Moving data to MongoDB and website for API )
 
 ### Final goals ###
 
-  -  Release pdf,html version of Ramayana in sanskrit,english and telugu ( Will add more languages as we could more people contibuting )
+  -  Release pdf,html version of Ramayana in sanskrit,english and telugu ( Will add more languages as more people contributing )
   -  Develop API so anyone can use Ramayana in their own application
-  -  Website showcasing the html version of the book
+
+### Achieved Goals ###
+  - Sanskrit version of the book is ready [Click Here](http://svenkatreddy.github.io/Ramayana_Book/).
+  - Website showcasing the html version of the book (sanskrit)
+  - Please report any changes / enchancements for sanskrit version

@@ -10,7 +10,7 @@ The Ramayana consists of 24,000 verses in seven books (kāṇḍas) and 500 cant
 
 Ramayana tells the story of Rama (an avatar of the Hindu supreme-god Vishnu), whose wife Sita is abducted by Ravana, the king of Lanka (current day Sri Lanka). Thematically, the Ramayana explores human values and the concept of dharma.
 
-The seven kandas (books or maybe chapters or phases) of Ramayana are as follows:
+The seven kandas ( books ) of Ramayana are as follows:
 
 	- बालकाण्डम्
 	- अयोध्याकाण्डम्
@@ -28,8 +28,4 @@ The seven kandas (books or maybe chapters or phases) of Ramayana are as follows:
   - Yuddha Kāṇḍa (Book of war, also known as Lanka Kanda)
   - Uttara Kāṇḍa (Last book)
 
-**Development**
-
-I/we would like to create a portable version of epic Ramayana in any format (html,pdf,word etc) to preserve one of the best books ever written in hindu mythology.
-
-We would appreciate if anyone could provide good resources to start.
+Please report any issues [here](https://github.com/svenkatreddy/Ramayana_Book/issues?state=open)
