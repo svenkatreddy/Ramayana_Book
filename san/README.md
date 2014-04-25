@@ -21,7 +21,7 @@ The seven kandas ( books ) of Ramayana are as follows:
 	- उत्तरकाण्डम्
 
   - Bāla Kāṇḍa (Book of childhood)
-  - Ayodhya Kāṇḍa (Book of ayodhya)3
+  - Ayodhya Kāṇḍa (Book of ayodhya
   - Araṇya Kāṇḍa (Book of the forest)
   - Kishkindha Kāṇḍa (Book of the monkey kingdom)
   - Sundara Kāṇḍa (Book of beauty)
