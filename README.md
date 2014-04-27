@@ -43,11 +43,5 @@ We would appreciate if anyone could provide good resources.
   
 ### Screenshots ###
 
- <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana01.jpg" width="320" height="480">
-
-
- <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana02.jpg" width="320" height="480">
- 
- 
- <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana03.jpg" width="320" height="480">
+ <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana01.jpg" width="240" height="320">   <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana02.jpg" width="240" height="320">   <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana03.jpg" width="240" height="320">
  
