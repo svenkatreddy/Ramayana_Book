@@ -41,7 +41,7 @@ We would appreciate if anyone could provide good resources.
   - Website showcasing the html version of the book (sanskrit)
   - Please report any changes / enchancements for sanskrit version
   
-### Screenshots ###
+### Screenshots ( Mobile ) ###
 
- <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana01.jpg" width="240" height="320">   <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana02.jpg" width="240" height="320">   <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana03.jpg" width="240" height="320">
+ <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana01.jpg" width="240" height="360">&nbsp;&nbsp;   <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana02.jpg" width="240" height="360">&nbsp;&nbsp;   <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana03.jpg" width="240" height="360">
  
