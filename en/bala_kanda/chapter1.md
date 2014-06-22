@@ -1,15 +1,7 @@
 Bala Kanda ()
 =============
 
-##Slōka 1##
+##English Version is not ready yet##
+###Please read sanskrit version for now and check back###
 
-
-###Sanskrit###
-
-
-	तपः स्वाध्याय निरताम् तपस्वी वाग्विदाम् वरम् |
-	नारदम् परिपप्रच्छ वाल्मीकिः मुनि पुंगवम् || १-१-१
-
-
-###Translation###
 
