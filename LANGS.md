@@ -1,2 +1,1 @@
 * [Sanskrit](san)
-* [English](eng)
