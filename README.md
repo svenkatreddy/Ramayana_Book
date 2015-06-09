@@ -39,7 +39,7 @@ We would appreciate if anyone could provide good resources.
 ### Achieved Goals ###
   - Sanskrit version of the book is ready [Click Here](http://svenkatreddy.github.io/Ramayana_Book/).
   - Website showcasing the html version of the book (sanskrit)
-  - Please report any changes / enchancements for sanskrit version
+  - Please report any changes / enchancements for sanskrit version 
   
 ### Screenshots ( Mobile ) ###
 
