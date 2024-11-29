@@ -15,7 +15,7 @@
         "grunt-contrib-clean": "~0.5.0",
         "grunt-http-server": "0.0.4",
         "gitbook-pdf": "0.0.1",
-        "grunt-contrib-copy": "0.5.0"
+        "grunt-contrib-copy": "1.0.0"
     },
     "peerDependencies": {
         "grunt": "~0.4.1"
