@@ -53,8 +53,10 @@ const devNum = (n) => String(n).replace(/\d/g, (d) => DEV_DIGITS[+d]);
 
 // Translation languages, in display order after Sanskrit. Sanskrit ('sa')
 // is always rendered; each entry here adds one stacked translation per
-// verse plus a toggle pill in the reader bar. To add a third language
-// (max), drop its files under translations/<dir>/ and add one entry here.
+// verse plus a toggle pill in the reader bar. To add another language,
+// drop its files under translations/<dir>/ and add one entry here. There
+// is no hard cap: the toolbar, CSS and show/hide logic are generated per
+// entry, so LANGS can hold any number of languages.
 // See translations/README.md.
 const LANGS = [{ code: 'en', dir: 'en', htmlLang: 'en', pill: 'English' }];
 const TRANSLATIONS = path.join(REPO, 'translations');
@@ -239,7 +241,7 @@ function chapterPage(kanda, num) {
   const body = convertChapter(kanda, num, src, tr);
   const hasTr = LANGS.some((L) => Object.keys(tr[L.code] || {}).length > 0);
   const credit = hasTr
-    ? `\n\n<p class="tr-credit">English translation: <a href="https://www.valmiki.iitk.ac.in/">Valmiki Ramayanam, IIT Kanpur</a>, via the open <a href="https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset">Valmiki Ramayan Dataset</a> (MIT).</p>\n`
+    ? `\n\n<p class="tr-credit">Sanskrit: <a href="https://www.valmiki.iitk.ac.in/">Valmiki Ramayanam, IIT Kanpur</a> (critical edition). English: <a href="https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset">Valmiki Ramayan Dataset</a> (MIT), from M.N. Dutt’s translation (1891–1894), IIT Kanpur, and Gyaandweep.</p>\n`
     : '';
   return fm + readerBar() + '\n\n' + body + credit + '\n';
 }

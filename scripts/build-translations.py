@@ -8,10 +8,11 @@ translations/en/<kanda>/chapterN.json.
 Source (credible, verse-aligned, MIT-licensed):
   Ashutosh Vijay's "Valmiki Ramayan Dataset"
   https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset (MIT licence)
-  Its English prose translations ("explanation" field) are the English
-  translation published by IIT Kanpur's Valmiki Ramayanam project
-  (https://www.valmiki.iitk.ac.in/) — the same critical-edition text our
-  Sanskrit comes from, so verse numbers line up.
+  Its English prose translations ("explanation" field) draw on the
+  dataset's documented sources: M.N. Dutt's English translation (1891-1894),
+  IIT Kanpur's Valmiki Ramayanam (https://www.valmiki.iitk.ac.in/), and
+  Gyaandweep (per the dataset README's Sources & Credits). Our Sanskrit
+  follows IITK's critical-edition numbering, so verse numbers line up.
 
 Gap-fill overlay (same MIT dataset, manually corrected copy):
   https://github.com/andvraman/valmiki-ramayana (data_1..7.json)
@@ -66,9 +67,10 @@ KANDAS = list(KANDA_NAMES.values())
 KIDX = {k: i + 1 for i, k in enumerate(KANDAS)}
 
 SOURCE_NOTE = (
-    "English translation: Valmiki Ramayanam, IIT Kanpur "
-    "(https://www.valmiki.iitk.ac.in/), via the MIT-licensed "
-    "Valmiki Ramayan Dataset by Ashutosh Vijay."
+    "English translations via the MIT-licensed Valmiki Ramayan "
+    "Dataset by Ashutosh Vijay; the dataset credits M.N. Dutt's "
+    "English translation (1891-1894), IIT Kanpur's Valmiki Ramayanam "
+    "(https://www.valmiki.iitk.ac.in/), and Gyaandweep."
 )
 
 
