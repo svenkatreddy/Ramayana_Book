@@ -48,6 +48,35 @@
   --sl-color-black: #0c0a09;
 }
 
+:root[data-theme='talapatra'] {
+  /* Palm-leaf manuscript (तालपत्रम्): aged leaf, iron-ink browns,
+     vermillion-red accent like traditional manuscript pigment. */
+  --sl-color-accent-low: #f0dfae;
+  --sl-color-accent: #8f3a17;
+  --sl-color-accent-high: #5f2410;
+  --sl-color-white: #2e1f0e;
+  --sl-color-gray-1: #4a3519;
+  --sl-color-gray-2: #6b532f;
+  --sl-color-gray-3: #8a6f45;
+  --sl-color-gray-4: #a68c5f;
+  --sl-color-gray-5: #c9b183;
+  --sl-color-gray-6: #dfc998;
+  --sl-color-black: #e7d3a1;
+}
+
+/* Faint leaf-fibre texture over the manuscript background. */
+:root[data-theme='talapatra'] body {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0 5px,
+    rgb(120 84 40 / 0.055) 5px 6px
+  );
+}
+
+:root[data-theme='talapatra'] .lang-pill.is-on {
+  color: #fdf6e3;
+}
+
 /* Wider reading column, generous line-height for verse readability. */
 .sl-markdown-content {
   max-width: 48rem;
@@ -181,6 +210,36 @@ html.hide-en .verse-tr[data-lang='en'] {
   border-top: 1px solid var(--sl-color-gray-5);
   font-size: 0.8rem;
   color: var(--sl-color-gray-3);
+}
+
+/* Reading progress: resume pill + sidebar checkmarks (localStorage). */
+.resume-pill {
+  position: fixed;
+  inset-inline-end: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  background: var(--sl-color-accent);
+  border: 1px solid var(--sl-color-accent);
+  color: #fff;
+  box-shadow: 0 4px 18px rgb(0 0 0 / 0.28);
+  cursor: pointer;
+}
+
+:root[data-theme='dark'] .resume-pill {
+  color: #1c1917;
+}
+
+:root[data-theme='talapatra'] .resume-pill {
+  color: #fdf6e3;
+}
+
+.rp-done {
+  color: var(--sl-color-accent);
+  font-weight: 700;
 }
 
 /* Kanda landing pages: section headings coming from the legacy READMEs
