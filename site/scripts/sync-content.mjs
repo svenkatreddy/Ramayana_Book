@@ -58,7 +58,8 @@ const devNum = (n) => String(n).replace(/\d/g, (d) => DEV_DIGITS[+d]);
 // is no hard cap: the toolbar, CSS and show/hide logic are generated per
 // entry, so LANGS can hold any number of languages.
 // See translations/README.md.
-const LANGS = [{ code: 'en', dir: 'en', htmlLang: 'en', pill: 'English' }];
+const LANGS = [{ code: 'en', dir: 'en', htmlLang: 'en', pill: 'English' },
+               { code: 'te', dir: 'te', htmlLang: 'te', pill: 'తెలుగు' }];
 const TRANSLATIONS = path.join(REPO, 'translations');
 
 const esc = (s) =>

@@ -8,6 +8,8 @@
 @import '@fontsource/noto-serif-devanagari/400.css';
 @import '@fontsource/noto-serif-devanagari/600.css';
 @import '@fontsource/yatra-one/400.css';
+@import '@fontsource/noto-sans-telugu/400.css';
+@import '@fontsource/noto-sans-telugu/500.css';
 
 :root {
   --sl-font:
