@@ -175,6 +175,7 @@ html.hide-en .verse-tr[data-lang='en'] {
 .reader-bar-label {
   color: var(--sl-color-gray-3);
   margin-inline-end: 0.2rem;
+  line-height: 1; /* tighten the box so flex centering lands on the text */
 }
 
 .lang-pill {
@@ -186,6 +187,12 @@ html.hide-en .verse-tr[data-lang='en'] {
   border-radius: 999px;
   padding: 0.32rem 0.95rem;
   cursor: pointer;
+  /* Center the label identically for every script: button text otherwise
+     follows font-metric baselines that differ between Devanagari and Latin,
+     which reads as vertical misalignment between the pills. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lang-pill:hover {
