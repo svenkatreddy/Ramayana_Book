@@ -203,12 +203,11 @@ html.hide-en .verse-tr[data-lang='en'] {
   color: #1c1917;
 }
 
-/* Translation credit footer on chapter pages. */
-.tr-credit {
-  margin-top: 3rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--sl-color-gray-5);
-  font-size: 0.8rem;
+/* Home page: quiet link line to the translation-sources and references pages. */
+.home-refs {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 0.9rem;
   color: var(--sl-color-gray-3);
 }
 

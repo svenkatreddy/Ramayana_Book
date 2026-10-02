@@ -281,11 +281,9 @@ function chapterPage(kanda, num) {
     'utf8',
   );
   const body = convertChapter(kanda, num, src, tr);
-  const hasTr = LANGS.some((L) => Object.keys(tr[L.code] || {}).length > 0);
-  const credit = hasTr
-    ? `\n\n<p class="tr-credit">Sanskrit: <a href="https://www.valmiki.iitk.ac.in/">Valmiki Ramayanam, IIT Kanpur</a> (critical edition). English: <a href="https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset">Valmiki Ramayan Dataset</a> (MIT), from M.N. Dutt’s translation (1891–1894), IIT Kanpur, and Gyaandweep.</p>\n`
-    : '';
-  return fm + readerBar() + '\n\n' + body + credit + '\n' + progressScript() + '\n';
+  // Translation credits live on their own page (translation-sources),
+  // not on every chapter — see translationSourcesPage() below.
+  return fm + readerBar() + '\n\n' + body + '\n' + progressScript() + '\n';
 }
 
 function kandaIndex(kanda, count) {
@@ -345,6 +343,8 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 <CardGrid>
 ${cards}
 </CardGrid>
+
+<p class="home-refs"><a href="./translation-sources/">Translation sources</a> · <a href="./references/">References</a></p>
 `;
 }
 
@@ -390,7 +390,54 @@ for (const kanda of KANDAS) {
   pages++;
 }
 
+function translationSourcesPage() {
+  // The short, canonical attribution for the site's texts and translations.
+  return `---
+title: Translation sources
+description: Where the Sanskrit text and translations on this site come from.
+---
+
+# Translation sources
+
+Sanskrit: [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/) (critical edition).
+English: [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT), from M.N. Dutt's translation (1891–1894), IIT Kanpur, and Gyaandweep.
+
+Telugu and further languages will be credited here as they are added. This
+site only publishes translations that are cleanly licensed and
+human-produced — never machine-translated.
+`;
+}
+
+function referencesPage() {
+  return `---
+title: References
+description: Sources, editions, and credits behind this reader.
+---
+
+# References
+
+## Texts and translations
+
+- **Sanskrit:** [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/) — critical edition. Three chapters were restored akshara-for-akshara from IITK's text where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
+- **English:** [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT licence), from M.N. Dutt's English translation (1891–1894), IIT Kanpur, and Gyaandweep.
+- **Telugu:** in progress — we are looking for a cleanly-licensed, verse-by-verse human translation.
+
+## This site
+
+- Reader built with [Astro Starlight](https://starlight.astro.build/).
+- Sanskrit UI strings, reading-progress tracking, and the themes (light, dark, and the तालपत्रम् palm-leaf manuscript theme) are this project's own additions.
+
+See [Translation sources](./translation-sources/) for the short version of the credits.
+`;
+}
+
 fs.writeFileSync(path.join(DOCS, 'index.mdx'), heroPage(totalChapters, totalSlokas));
+pages++;
+
+fs.writeFileSync(path.join(DOCS, 'translation-sources.md'), translationSourcesPage());
+pages++;
+
+fs.writeFileSync(path.join(DOCS, 'references.md'), referencesPage());
 pages++;
 
 for (const w of warnings) console.warn('warning:', w);
