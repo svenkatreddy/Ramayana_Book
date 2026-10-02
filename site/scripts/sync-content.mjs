@@ -254,7 +254,14 @@ function kandaIndex(kanda, count) {
     let i = 0;
     while (i < lines.length && lines[i].trim() === '') i++;
     if (/=+$/.test((lines[i + 1] || '').trim())) i += 2; // title + setext underline
-    body = lines.slice(i).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+    body = lines
+      .slice(i)
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n')
+      // Legacy READMEs write ATX headings without the space CommonMark
+      // requires (e.g. `###Synopsis###`), which renders as plain text.
+      .replace(/^###([^#\s][^#]*?)###[ \t]*$/gm, '### $1')
+      .trim();
   }
   return (
     '---\n' +

@@ -62,9 +62,16 @@
 .verse {
   position: relative;
   margin: 0 0 2.1rem;
-  padding: 0.9rem 0 0.2rem 1.25rem;
+  padding: 0.9rem 0.9rem 0.2rem 1.25rem;
   border-inline-start: 3px solid var(--sl-color-accent);
+  border-radius: 0.5rem;
   scroll-margin-top: 5.5rem;
+  transition: background-color 0.15s ease;
+}
+
+/* Subtle tint tracks the eye's position while reading long chapters. */
+.verse:hover {
+  background-color: var(--sl-color-accent-low);
 }
 
 .verse-num {
@@ -89,19 +96,22 @@ a.verse-num:hover {
   font-size: 1.18rem;
   line-height: 2.05;
   color: var(--sl-color-white); /* primary text in both themes */
+  text-wrap: pretty;
 }
 
 .verse-sa .pada {
   display: block;
 }
 
-/* Translations sit directly below the Sanskrit, visually quieter. */
+/* Translations sit directly below the Sanskrit, visually quieter but still
+   comfortable for sustained reading. */
 .verse-tr {
   margin-top: 0.65rem;
   max-width: 41rem;
-  font-size: 0.96rem;
-  line-height: 1.72;
-  color: var(--sl-color-gray-3);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--sl-color-gray-2);
+  text-wrap: pretty;
 }
 
 .verse-tr[data-lang='en'] {
@@ -171,6 +181,13 @@ html.hide-en .verse-tr[data-lang='en'] {
   border-top: 1px solid var(--sl-color-gray-5);
   font-size: 0.8rem;
   color: var(--sl-color-gray-3);
+}
+
+/* Kanda landing pages: section headings coming from the legacy READMEs
+   (Synopsis, Chapters) get a clear accent treatment. */
+.sl-markdown-content h3 {
+  color: var(--sl-color-accent-high);
+  margin-top: 2.4rem;
 }
 
 /* Hero display face, used sparingly. */
