@@ -1,10 +1,22 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+// Deployment targets:
+// - GitHub Pages (production site): defaults below, served at
+//   https://svenkatreddy.github.io/Ramayana_Book/
+// - Vercel (PR previews): set SITE_BASE=/ in the Vercel project settings.
+//   SITE_URL then falls back to Vercel's own deployment URL automatically.
+const siteUrl =
+  process.env.SITE_URL ??
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : 'https://svenkatreddy.github.io');
+const siteBase = process.env.SITE_BASE ?? '/Ramayana_Book/';
+
 // https://starlight.astro.build/reference/configuration/
 export default defineConfig({
-  site: 'https://svenkatreddy.github.io',
-  base: '/Ramayana_Book/',
+  site: siteUrl,
+  base: siteBase,
   integrations: [
     starlight({
       title: 'रामायणम्',
