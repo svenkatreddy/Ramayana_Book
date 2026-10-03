@@ -1,0 +1,28 @@
+---
+// Custom theme provider: Starlight's built-in one only knows light/dark.
+// This version additionally honors the 'talapatra' (palm-leaf manuscript) theme.
+---
+
+{/* This is intentionally inlined to avoid FOUC. */}
+<script is:inline>
+  window.StarlightThemeProvider = (() => {
+    const stored =
+      typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+    const valid =
+      stored === 'light' || stored === 'dark' || stored === 'talapatra' ? stored : null;
+    const theme = valid
+      ? stored
+      : window.matchMedia('(prefers-color-scheme: light)').matches
+        ? 'light'
+        : 'dark';
+    document.documentElement.dataset.theme = theme;
+    return {
+      updatePickers(theme = stored || 'auto') {
+        document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+          const select = picker.querySelector('select');
+          if (select) select.value = theme;
+        });
+      },
+    };
+  })();
+</script>

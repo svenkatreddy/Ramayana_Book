@@ -27,6 +27,12 @@ export default defineConfig({
         root: { label: 'संस्कृतम्', lang: 'sa' },
       },
       customCss: ['./src/styles/custom.css'],
+      components: {
+        // Custom theme pipeline: supports light/dark/auto plus the
+        // 'talapatra' palm-leaf manuscript theme.
+        ThemeProvider: './src/components/ThemeProvider.astro',
+        ThemeSelect: './src/components/ThemeSelect.astro',
+      },
       social: [
         {
           icon: 'github',

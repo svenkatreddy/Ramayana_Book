@@ -58,7 +58,8 @@ const devNum = (n) => String(n).replace(/\d/g, (d) => DEV_DIGITS[+d]);
 // is no hard cap: the toolbar, CSS and show/hide logic are generated per
 // entry, so LANGS can hold any number of languages.
 // See translations/README.md.
-const LANGS = [{ code: 'en', dir: 'en', htmlLang: 'en', pill: 'English' }];
+const LANGS = [{ code: 'en', dir: 'en', htmlLang: 'en', pill: 'English' },
+               { code: 'te', dir: 'te', htmlLang: 'te', pill: 'తెలుగు' }];
 const TRANSLATIONS = path.join(REPO, 'translations');
 
 const esc = (s) =>
@@ -107,8 +108,50 @@ function apply(){var h=read(),root=document.documentElement;
 root.classList.toggle('hide-sa',h['sa']===false);
 ${LANGS.map((L) => `root.classList.toggle('hide-${L.code}',h['${L.code}']===false);`).join('\n')}
 document.querySelectorAll('.lang-pill').forEach(function(b){var on=h[b.dataset.lang]!==false;b.classList.toggle('is-on',on);b.setAttribute('aria-pressed',String(on));});}
-document.addEventListener('click',function(e){var b=e.target.closest('.lang-pill');if(!b)return;var h=read(),l=b.dataset.lang;h[l]=!(h[l]!==false);try{localStorage.setItem(KEY,JSON.stringify(h))}catch(e){}apply();});
+document.addEventListener('click',function(e){var b=e.target.closest('.lang-pill');if(!b)return;var h=read(),l=b.dataset.lang,next=!(h[l]!==false);if(!next){var pills=document.querySelectorAll('.lang-pill'),any=false;for(var i=0;i<pills.length;i++){if(pills[i]!==b&&pills[i].classList.contains('is-on')){any=true;break;}}if(!any)return;}h[l]=next;try{localStorage.setItem(KEY,JSON.stringify(h))}catch(e){}apply();});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();})();
+</script>`;
+}
+
+/** Reading-progress tracker injected at the end of every chapter page.
+ *  - Remembers the furthest verse read per chapter (localStorage).
+ *  - Offers a "resume" pill when reopening a chapter mid-way.
+ *  - Marks chapters complete and shows a ✓ on their sidebar links. */
+function progressScript() {
+  return `<script>
+(function(){if(window.__rpInit)return;window.__rpInit=true;
+var KEY='ramayana-progress-v1';
+var load=function(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return{}}};
+var save=function(d){try{localStorage.setItem(KEY,JSON.stringify(d))}catch(e){}};
+var run=function(){
+var m=location.pathname.match(/([^\\/]+)\\/chapter(\\d+)\\/?$/);
+var verses=document.querySelectorAll('.verse');
+if(!m||!verses.length)return;
+var id=m[1]+'/chapter'+m[2],data=load(),entry=data[id]||{};
+function persist(){data[id]={verse:maxVerse,done:!!entry.done,ts:Date.now()};save(data);}
+/* Resume pill, dismissed after 20s or on click. */
+if(entry.verse&&!location.hash){
+var anchor=document.querySelector('#v'+entry.verse+' .verse-num');
+var b=document.createElement('button');b.type='button';b.className='resume-pill';
+b.innerHTML='<span aria-hidden="true">\\u25B6</span> '+(anchor?anchor.textContent.trim():'')+' \\u00B7 resume';
+b.addEventListener('click',function(){var t=document.getElementById('v'+entry.verse);if(t)t.scrollIntoView();b.remove();});
+document.body.appendChild(b);
+setTimeout(function(){if(b.parentNode)b.remove()},20000);
+}
+/* Furthest verse seen (middle band of the viewport = "reading"). */
+var maxVerse=entry.verse||0,t=null;
+var io=new IntersectionObserver(function(es){var c=false;es.forEach(function(e){if(!e.isIntersecting)return;var v=parseInt(e.target.id.slice(1),10)||0;if(v>maxVerse){maxVerse=v;c=true;}});if(c){clearTimeout(t);t=setTimeout(persist,800);}},{rootMargin:'-40% 0px -55% 0px'});
+verses.forEach(function(v){io.observe(v);});
+/* Chapter counts as read once its final verse is seen. */
+var last=verses[verses.length-1];
+new IntersectionObserver(function(es,obs){es.forEach(function(e){if(e.isIntersecting){entry.done=true;persist();markDone();obs.disconnect();}});},{threshold:0.35}).observe(last);
+/* Checkmarks on finished chapters in the sidebar. */
+function markDone(){document.querySelectorAll('.sidebar a[href]').forEach(function(a){var hm=(a.getAttribute('href')||'').match(/([^\\/]+)\\/chapter(\\d+)\\/?$/);if(hm&&!a.querySelector('.rp-done')){var d=data[hm[1]+'/chapter'+hm[2]];if(d&&d.done){var s=document.createElement('span');s.className='rp-done';s.textContent=' \\u2713';a.appendChild(s);}}});}
+markDone();
+window.addEventListener('pagehide',persist);
+};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
+})();
 </script>`;
 }
 
@@ -239,11 +282,9 @@ function chapterPage(kanda, num) {
     'utf8',
   );
   const body = convertChapter(kanda, num, src, tr);
-  const hasTr = LANGS.some((L) => Object.keys(tr[L.code] || {}).length > 0);
-  const credit = hasTr
-    ? `\n\n<p class="tr-credit">Sanskrit: <a href="https://www.valmiki.iitk.ac.in/">Valmiki Ramayanam, IIT Kanpur</a> (critical edition). English: <a href="https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset">Valmiki Ramayan Dataset</a> (MIT), from M.N. Dutt’s translation (1891–1894), IIT Kanpur, and Gyaandweep.</p>\n`
-    : '';
-  return fm + readerBar() + '\n\n' + body + credit + '\n';
+  // Translation credits live on their own page (translation-sources),
+  // not on every chapter — see translationSourcesPage() below.
+  return fm + readerBar() + '\n\n' + body + '\n' + progressScript() + '\n';
 }
 
 function kandaIndex(kanda, count) {
@@ -279,7 +320,7 @@ function kandaIndex(kanda, count) {
 function heroPage(totalChapters, totalSlokas) {
   const cards = KANDAS.map(
     (k) =>
-      `      - title: ${k.sa}\n        description: ${k.en} — ${k.sub}\n        href: ${k.dir}/`,
+      `  <LinkCard title="${k.sa}" description="${k.en} — ${k.sub}" href="${k.dir}/" />`,
   ).join('\n');
   return `---
 title: रामायणम्
@@ -303,6 +344,8 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 <CardGrid>
 ${cards}
 </CardGrid>
+
+<p class="home-refs"><a href="./translation-sources/">Translation sources</a> · <a href="./references/">References</a></p>
 `;
 }
 
@@ -348,7 +391,54 @@ for (const kanda of KANDAS) {
   pages++;
 }
 
+function translationSourcesPage() {
+  // The short, canonical attribution for the site's texts and translations.
+  return `---
+title: Translation sources
+description: Where the Sanskrit text and translations on this site come from.
+---
+
+# Translation sources
+
+Sanskrit: [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/) (critical edition).
+English: [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT), from M.N. Dutt's translation (1891–1894), IIT Kanpur, and Gyaandweep.
+
+Telugu and further languages will be credited here as they are added. This
+site only publishes translations that are cleanly licensed and
+human-produced — never machine-translated.
+`;
+}
+
+function referencesPage() {
+  return `---
+title: References
+description: Sources, editions, and credits behind this reader.
+---
+
+# References
+
+## Texts and translations
+
+- **Sanskrit:** [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/) — critical edition. Three chapters were restored akshara-for-akshara from IITK's text where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
+- **English:** [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT licence), from M.N. Dutt's English translation (1891–1894), IIT Kanpur, and Gyaandweep.
+- **Telugu:** in progress — we are looking for a cleanly-licensed, verse-by-verse human translation.
+
+## This site
+
+- Reader built with [Astro Starlight](https://starlight.astro.build/).
+- Sanskrit UI strings, reading-progress tracking, and the themes (light, dark, and the तालपत्रम् palm-leaf manuscript theme) are this project's own additions.
+
+See [Translation sources](./translation-sources/) for the short version of the credits.
+`;
+}
+
 fs.writeFileSync(path.join(DOCS, 'index.mdx'), heroPage(totalChapters, totalSlokas));
+pages++;
+
+fs.writeFileSync(path.join(DOCS, 'translation-sources.md'), translationSourcesPage());
+pages++;
+
+fs.writeFileSync(path.join(DOCS, 'references.md'), referencesPage());
 pages++;
 
 for (const w of warnings) console.warn('warning:', w);
