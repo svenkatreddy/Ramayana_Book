@@ -65,6 +65,26 @@ the remainder are mostly colophons, not untranslated verses. Built with
 
 ## Sources
 
-- Sanskrit text: [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/)
-  (critical edition).
+- Sanskrit text: [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia).
+  Three chapters restored from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/).
 - English: see Translations above.
+- Telugu: [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA).
+- Hindi: Chaturvedi Dwarka Prasad Sharma's Hindi translation.
+
+## Gaps & Contributing
+
+We need your help! Current translation coverage:
+
+| Language | Verses | Coverage | Gap |
+|----------|--------|----------|-----|
+| Sanskrit | 23,334 | 100% | Complete |
+| English | 23,075 | 98.9% | 259 verses (mostly colophons) |
+| Hindi | 13,030 | 55.8% | ~10,300 verses |
+| Telugu | 322 | 1.4% | ~23,000 verses |
+
+**How to contribute:**
+- **Translate:** Help fill Hindi/Telugu gaps. We only accept cleanly-licensed, human-produced translations — never machine-translated.
+- **Proofread:** The Hindi OCR has errors; corrections welcome.
+- **Code:** Reader improvements, themes, accessibility — see open issues.
+
+See [Contributors](https://svenkatreddy.github.io/Ramayana_Book/contributors/) for the people behind this project.

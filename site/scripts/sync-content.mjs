@@ -59,7 +59,8 @@ const devNum = (n) => String(n).replace(/\d/g, (d) => DEV_DIGITS[+d]);
 // entry, so LANGS can hold any number of languages.
 // See translations/README.md.
 const LANGS = [{ code: 'en', dir: 'en', htmlLang: 'en', pill: 'English' },
-               { code: 'te', dir: 'te', htmlLang: 'te', pill: 'తెలుగు' }];
+               { code: 'te', dir: 'te', htmlLang: 'te', pill: 'తెలుగు' },
+               { code: 'hi', dir: 'hi', htmlLang: 'hi', pill: 'हिन्दी' }];
 const TRANSLATIONS = path.join(REPO, 'translations');
 
 const esc = (s) =>
@@ -90,10 +91,10 @@ function loadTranslations(kandaDir, num) {
 /** Language toggle bar injected at the top of every chapter page. */
 function readerBar() {
   const pills = [
-    `<button type="button" class="lang-pill is-on" data-lang="sa" aria-pressed="true">संस्कृतम्</button>`,
+    `<button type="button" class="lang-pill is-on" data-lang="sa" aria-pressed="true"><span>संस्कृतम्</span></button>`,
     ...LANGS.map(
       (L) =>
-        `<button type="button" class="lang-pill is-on" data-lang="${L.code}" aria-pressed="true">${esc(L.pill)}</button>`,
+        `<button type="button" class="lang-pill is-on" data-lang="${L.code}" aria-pressed="true"><span>${esc(L.pill)}</span></button>`,
     ),
   ].join('\n  ');
   return `<div class="reader-bar" role="toolbar" aria-label="Reading languages">
@@ -303,7 +304,14 @@ function kandaIndex(kanda, count) {
       // requires (e.g. `###Synopsis###`), which renders as plain text.
       .replace(/^###([^#\s][^#]*?)###[ \t]*$/gm, '### $1')
       .trim();
+    // Remove the English-only Introduction/Synopsis; replaced by the
+    // multilingual summary tabs below.
+    body = body
+      .replace(/\*\*Introduction:\*\*[\s\S]*?(?=### Synopsis)/, '')
+      .replace(/### Synopsis[\s\S]*?(?=### Chapters)/, '')
+      .trim();
   }
+  const summaryHtml = kandaSummaryHtml(kanda.dir);
   return (
     '---\n' +
     `title: '${kanda.sa} · ${kanda.en}'\n` +
@@ -312,9 +320,37 @@ function kandaIndex(kanda, count) {
     `  label: '${kanda.sa}'\n` +
     '  order: 0\n' +
     '---\n\n' +
+    summaryHtml +
+    '\n\n' +
     body +
     '\n'
   );
+}
+
+function kandaSummaryHtml(kandaDir) {
+  const summariesP = path.join(REPO, 'site', 'src', 'data', 'kanda-summaries.json');
+  let data;
+  try {
+    data = JSON.parse(fs.readFileSync(summariesP, 'utf8'))[kandaDir];
+  } catch { return ''; }
+  if (!data) return '';
+  const langs = [
+    { code: 'sa', label: 'संस्कृतम्' },
+    { code: 'en', label: 'English' },
+    { code: 'te', label: 'తెలుగు' },
+    { code: 'hi', label: 'हिन्दी' },
+  ];
+  const pills = langs.map((l, i) =>
+    `<button type="button" class="lang-pill${i === 0 ? ' is-on' : ''}" data-summary-lang="${l.code}" aria-pressed="${i === 0}"><span>${l.label}</span></button>`
+  ).join('\n');
+  const panels = langs.map((l, i) => {
+    const s = data[l.code];
+    if (!s) return '';
+    const paras = Array.isArray(s.paragraphs) ? s.paragraphs : [s.synopsis];
+    const paraHtml = paras.map(p => `<p>${p}</p>`).join('\n');
+    return `<div class="summary-panel" data-summary-panel="${l.code}"${i !== 0 ? ' hidden' : ''}>\n<p><strong>${s.intro}</strong></p>\n${paraHtml}\n</div>`;
+  }).join('\n');
+  return `<div class="kanda-summary" data-kanda-summary>\n<div class="reader-bar" role="tablist" aria-label="Summary language">\n${pills}\n</div>\n${panels}\n</div>\n\n<script>\n(function(){\nvar root=document.currentScript.previousElementSibling;\nwhile(root&&!root.hasAttribute('data-kanda-summary'))root=root.previousElementSibling;\nif(!root)return;\nvar pills=root.querySelectorAll('[data-summary-lang]');\nvar panels=root.querySelectorAll('[data-summary-panel]');\nfunction select(lang){\n  pills.forEach(function(p){var on=p.getAttribute('data-summary-lang')===lang;p.classList.toggle('is-on',on);p.setAttribute('aria-pressed',on);});\n  panels.forEach(function(p){p.hidden=p.getAttribute('data-summary-panel')!==lang;});\n  try{localStorage.setItem('ramayana-summary-lang',lang);}catch(e){}\n}\ntry{var saved=localStorage.getItem('ramayana-summary-lang');if(saved)select(saved);}catch(e){}\npills.forEach(function(p){p.addEventListener('click',function(){select(p.getAttribute('data-summary-lang'));});});\n})();\n</script>`;
 }
 
 function heroPage(totalChapters, totalSlokas) {
@@ -345,7 +381,7 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 ${cards}
 </CardGrid>
 
-<p class="home-refs"><a href="./translation-sources/">Translation sources</a> · <a href="./references/">References</a></p>
+<p class="home-refs"><a href="./translation-sources/">Translation sources</a> · <a href="./references/">References</a> · <a href="./contributors/">Contributors</a></p>
 `;
 }
 
@@ -400,11 +436,12 @@ description: Where the Sanskrit text and translations on this site come from.
 
 # Translation sources
 
-Sanskrit: [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/) (critical edition).
+Sanskrit: [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia) — the repository's original source. Three chapters were restored from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/) (critical edition) where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31.
 English: [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT), from M.N. Dutt's translation (1891–1894), IIT Kanpur, and Gyaandweep.
+Telugu: [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA).
+Hindi: Chaturvedi Dwarka Prasad Sharma's Hindi translation.
 
-Telugu and further languages will be credited here as they are added. This
-site only publishes translations that are cleanly licensed and
+This site only publishes translations that are cleanly licensed and
 human-produced — never machine-translated.
 `;
 }
@@ -419,9 +456,10 @@ description: Sources, editions, and credits behind this reader.
 
 ## Texts and translations
 
-- **Sanskrit:** [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/) — critical edition. Three chapters were restored akshara-for-akshara from IITK's text where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
+- **Sanskrit:** [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia) — the repository's original source. Three chapters were restored akshara-for-akshara from IITK's text where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
 - **English:** [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT licence), from M.N. Dutt's English translation (1891–1894), IIT Kanpur, and Gyaandweep.
-- **Telugu:** in progress — we are looking for a cleanly-licensed, verse-by-verse human translation.
+- **Telugu:** [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA).
+- **Hindi:** Chaturvedi Dwarka Prasad Sharma's Hindi translation.
 
 ## This site
 
@@ -435,10 +473,45 @@ See [Translation sources](./translation-sources/) for the short version of the c
 fs.writeFileSync(path.join(DOCS, 'index.mdx'), heroPage(totalChapters, totalSlokas));
 pages++;
 
+function contributorsPage() {
+  return `---
+title: Contributors
+description: The people behind the Ramayana Book project.
+---
+
+# Contributors
+
+## Project
+
+- **[svenkatreddy](https://github.com/svenkatreddy)** — Project maintainer and creator
+
+## Code contributors
+
+- **[accessvasu](https://github.com/accessvasu)**
+- **[puthiyavan](https://github.com/puthiyavan)**
+- **[pranavsutar](https://github.com/pranavsutar)**
+- **[vedupraity](https://github.com/vedupraity)**
+
+## Translation sources
+
+- **Sanskrit:** [Sanskrit Wikisource](https://sa.wikisource.org/) contributors (Wikimedia)
+- **English:** [M.N. Dutt](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (1891–1894), via the Valmiki Ramayan Dataset (MIT)
+- **Telugu:** [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA)
+- **Hindi:** Chaturvedi Dwarka Prasad Sharma
+
+---
+
+Want to contribute? See the [gaps and how to help](https://github.com/svenkatreddy/Ramayana_Book#gaps--contributing) in the README.
+`;
+}
+
 fs.writeFileSync(path.join(DOCS, 'translation-sources.md'), translationSourcesPage());
 pages++;
 
 fs.writeFileSync(path.join(DOCS, 'references.md'), referencesPage());
+pages++;
+
+fs.writeFileSync(path.join(DOCS, 'contributors.md'), contributorsPage());
 pages++;
 
 for (const w of warnings) console.warn('warning:', w);

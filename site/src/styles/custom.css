@@ -10,6 +10,8 @@
 @import '@fontsource/yatra-one/400.css';
 @import '@fontsource/noto-sans-telugu/400.css';
 @import '@fontsource/noto-sans-telugu/500.css';
+@import '@fontsource/noto-sans-devanagari/400.css';
+@import '@fontsource/noto-sans-devanagari/500.css';
 
 :root {
   --sl-font:
@@ -151,7 +153,7 @@ a.verse-num:hover {
 
 /* Future third language, e.g. Telugu or Hindi — add a font rule here:
 .verse-tr[data-lang='te'] { font-family: 'Noto Sans Telugu', var(--sl-font); }
-.verse-tr[data-lang='hi'] { font-family: var(--verse-font); }
+.verse-tr[data-lang='hi'] { font-family: 'Noto Sans Devanagari', var(--sl-font); }
 */
 
 /* Reader-bar toggles hide languages via classes on <html>. */
@@ -163,7 +165,7 @@ html.hide-en .verse-tr[data-lang='en'] {
 /* ---- Reader language bar ---- */
 .reader-bar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 0.5rem;
   margin: 0 0 1.75rem;
@@ -172,6 +174,8 @@ html.hide-en .verse-tr[data-lang='en'] {
   border: 1px solid var(--sl-color-gray-5);
   border-radius: 0.8rem;
   font-size: 0.85rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .reader-bar-label {
@@ -182,19 +186,27 @@ html.hide-en .verse-tr[data-lang='en'] {
 
 .lang-pill {
   font: inherit;
-  line-height: 1.4;
   border: 1px solid var(--sl-color-gray-5);
   background: transparent;
   color: var(--sl-color-gray-2);
   border-radius: 999px;
-  padding: 0.32rem 0.95rem;
+  padding: 0 0.95rem;
+  height: 2.1rem;
   cursor: pointer;
-  /* Center the label identically for every script: button text otherwise
-     follows font-metric baselines that differ between Devanagari and Latin,
-     which reads as vertical misalignment between the pills. */
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* Optical alignment: Devanagari's headline (shirorekha) makes the glyphs
+   sit visually high in the line box. Nudge the text down slightly so
+   संस्कृतम् aligns with the Latin/Telugu pills. */
+.lang-pill > span {
+  display: inline-block;
+  line-height: 1;
+  transform: translateY(0.06em);
 }
 
 .lang-pill:hover {
@@ -255,6 +267,20 @@ html.hide-en .verse-tr[data-lang='en'] {
 .sl-markdown-content h3 {
   color: var(--sl-color-accent-high);
   margin-top: 2.4rem;
+}
+
+/* Kanda summary language tabs */
+.kanda-summary {
+  margin: 1.5rem 0;
+}
+.kanda-summary .reader-bar {
+  margin-bottom: 1rem;
+}
+.summary-panel p {
+  line-height: 1.7;
+}
+.summary-panel[hidden] {
+  display: none;
 }
 
 /* Hero display face, used sparingly. */
