@@ -6,3 +6,4 @@ node_modules
 /san/_book/
 *_book*`
 *.bat
+__pycache__/

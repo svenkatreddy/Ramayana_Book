@@ -2,10 +2,10 @@
 """Build verse-aligned Hindi translations for the Ramayana book.
 
 Extracts Chaturvedi Dwarka Prasad Sharma's Hindi prose translation from the
-Archive.org scan (used with permission) and aligns it verse-by-verse with our
+Archive.org scan and aligns it verse-by-verse with our
 Sanskrit chapters, writing translations/hi/<kanda>/chapterN.json.
 
-Source (used with permission):
+Source:
   "Valmiki Ramayan Hindi Translation By Chaturvedi Dwarka Prasad Sharma"
   https://archive.org/details/ValmikiRamayan-Hinditranslation
   Translator: Chaturvedi Dwarka Prasad Sharma, Allahabad (3rd edition)
@@ -287,7 +287,7 @@ def main():
                     {
                         "kanda": kanda,
                         "chapter": i,
-                        "source": "Chaturvedi Dwarka Prasad Sharma Hindi translation (used with permission)",
+                        "source": "Chaturvedi Dwarka Prasad Sharma Hindi translation",
                         "translations": {str(n): h for n, h in sorted(vmap.items())},
                     },
                     f, ensure_ascii=False, indent=1,

@@ -437,7 +437,7 @@ description: Where the Sanskrit text and translations on this site come from.
 Sanskrit: [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia) — the repository's original source. Three chapters were restored from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/) (critical edition) where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31.
 English: [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT), from M.N. Dutt's translation (1891–1894), IIT Kanpur, and Gyaandweep.
 Telugu: [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA).
-Hindi: Chaturvedi Dwarka Prasad Sharma's Hindi translation, used with permission.
+Hindi: Chaturvedi Dwarka Prasad Sharma's Hindi translation.
 
 This site only publishes translations that are cleanly licensed and
 human-produced — never machine-translated.
@@ -457,7 +457,7 @@ description: Sources, editions, and credits behind this reader.
 - **Sanskrit:** [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia) — the repository's original source. Three chapters were restored akshara-for-akshara from IITK's text where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
 - **English:** [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT licence), from M.N. Dutt's English translation (1891–1894), IIT Kanpur, and Gyaandweep.
 - **Telugu:** [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA).
-- **Hindi:** Chaturvedi Dwarka Prasad Sharma's Hindi translation, used with permission.
+- **Hindi:** Chaturvedi Dwarka Prasad Sharma's Hindi translation.
 
 ## This site
 
