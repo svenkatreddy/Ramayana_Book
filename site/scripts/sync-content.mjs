@@ -346,7 +346,9 @@ function kandaSummaryHtml(kandaDir) {
   const panels = langs.map((l, i) => {
     const s = data[l.code];
     if (!s) return '';
-    return `<div class="summary-panel" data-summary-panel="${l.code}"${i !== 0 ? ' hidden' : ''}>\n<p><strong>${s.intro}</strong></p>\n<p>${s.synopsis}</p>\n</div>`;
+    const paras = Array.isArray(s.paragraphs) ? s.paragraphs : [s.synopsis];
+    const paraHtml = paras.map(p => `<p>${p}</p>`).join('\n');
+    return `<div class="summary-panel" data-summary-panel="${l.code}"${i !== 0 ? ' hidden' : ''}>\n<p><strong>${s.intro}</strong></p>\n${paraHtml}\n</div>`;
   }).join('\n');
   return `<div class="kanda-summary" data-kanda-summary>\n<div class="reader-bar" role="tablist" aria-label="Summary language">\n${pills}\n</div>\n${panels}\n</div>\n\n<script>\n(function(){\nvar root=document.currentScript.previousElementSibling;\nwhile(root&&!root.hasAttribute('data-kanda-summary'))root=root.previousElementSibling;\nif(!root)return;\nvar pills=root.querySelectorAll('[data-summary-lang]');\nvar panels=root.querySelectorAll('[data-summary-panel]');\nfunction select(lang){\n  pills.forEach(function(p){var on=p.getAttribute('data-summary-lang')===lang;p.classList.toggle('is-on',on);p.setAttribute('aria-pressed',on);});\n  panels.forEach(function(p){p.hidden=p.getAttribute('data-summary-panel')!==lang;});\n  try{localStorage.setItem('ramayana-summary-lang',lang);}catch(e){}\n}\ntry{var saved=localStorage.getItem('ramayana-summary-lang');if(saved)select(saved);}catch(e){}\npills.forEach(function(p){p.addEventListener('click',function(){select(p.getAttribute('data-summary-lang'));});});\n})();\n</script>`;
 }
