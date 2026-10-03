@@ -264,3 +264,11 @@ html.hide-en .verse-tr[data-lang='en'] {
   font-weight: 400;
   letter-spacing: 0.01em;
 }
+
+/* Theme picker: move from the bottom of the sidebar to the top. */
+.sidebar-content > .mobile-preferences {
+  order: -1;
+  border-top: 0;
+  border-bottom: 1px solid var(--sl-color-gray-6);
+  margin-bottom: 0.5rem;
+}
