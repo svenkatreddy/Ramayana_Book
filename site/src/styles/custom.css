@@ -10,6 +10,8 @@
 @import '@fontsource/yatra-one/400.css';
 @import '@fontsource/noto-sans-telugu/400.css';
 @import '@fontsource/noto-sans-telugu/500.css';
+@import '@fontsource/noto-sans-devanagari/400.css';
+@import '@fontsource/noto-sans-devanagari/500.css';
 
 :root {
   --sl-font:
@@ -151,7 +153,7 @@ a.verse-num:hover {
 
 /* Future third language, e.g. Telugu or Hindi — add a font rule here:
 .verse-tr[data-lang='te'] { font-family: 'Noto Sans Telugu', var(--sl-font); }
-.verse-tr[data-lang='hi'] { font-family: var(--verse-font); }
+.verse-tr[data-lang='hi'] { font-family: 'Noto Sans Devanagari', var(--sl-font); }
 */
 
 /* Reader-bar toggles hide languages via classes on <html>. */
@@ -255,6 +257,20 @@ html.hide-en .verse-tr[data-lang='en'] {
 .sl-markdown-content h3 {
   color: var(--sl-color-accent-high);
   margin-top: 2.4rem;
+}
+
+/* Kanda summary language tabs */
+.kanda-summary {
+  margin: 1.5rem 0;
+}
+.kanda-summary .reader-bar {
+  margin-bottom: 1rem;
+}
+.summary-panel p {
+  line-height: 1.7;
+}
+.summary-panel[hidden] {
+  display: none;
 }
 
 /* Hero display face, used sparingly. */
