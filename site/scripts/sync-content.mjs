@@ -400,8 +400,9 @@ description: Where the Sanskrit text and translations on this site come from.
 
 # Translation sources
 
-Sanskrit: [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/) (critical edition).
+Sanskrit: [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia). Three chapters were restored akshara-for-akshara from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/) (critical edition) where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31.
 English: [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT), from M.N. Dutt's translation (1891–1894), IIT Kanpur, and Gyaandweep.
+Telugu: [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA) — 322 verses so far; the wiki's Telugu translation is still in progress.
 
 Telugu and further languages will be credited here as they are added. This
 site only publishes translations that are cleanly licensed and
@@ -419,9 +420,9 @@ description: Sources, editions, and credits behind this reader.
 
 ## Texts and translations
 
-- **Sanskrit:** [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/) — critical edition. Three chapters were restored akshara-for-akshara from IITK's text where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
+- **Sanskrit:** [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia). Three chapters were restored akshara-for-akshara from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/) (critical edition) where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
 - **English:** [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT licence), from M.N. Dutt's English translation (1891–1894), IIT Kanpur, and Gyaandweep.
-- **Telugu:** in progress — we are looking for a cleanly-licensed, verse-by-verse human translation.
+- **Telugu:** [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA) — 322 verses across 10 Bala Kanda sargas so far; the wiki's Telugu translation is still in progress.
 
 ## This site
 
