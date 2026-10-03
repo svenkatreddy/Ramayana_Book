@@ -1,70 +1,53 @@
-# Ramayana Book — रामायणम्
+# Ramayana Book
 
-**Live reader:** https://svenkatreddy.github.io/Ramayana_Book/
+A modern, readable web edition of the **Valmiki Ramayana** — all 24,000 verses across seven kāṇḍas and 645 sargas, with verse-by-verse English and Telugu translations.
 
-The complete Vālmīki Rāmāyaṇa — 645 sargas across seven kāṇḍas — as structured
-data and a modern web reader, in Sanskrit with verse-aligned translations.
-
-## Repository layout
-
-| Path | What it is |
-| ---- | ---------- |
-| `san/` | Sanskrit source of truth: per-chapter JSON + Markdown, plus combined `*_all.json` bundles |
-| `translations/` | Verse-aligned translations (`en/` English, 98.9% coverage). New languages welcome — see `translations/README.md` |
-| `site/` | Astro Starlight reader: stacked Sanskrit + translations, full-text search, light/dark/palm-leaf themes |
-| `scripts/` | Content tooling (all dependency-free or stdlib-only) |
-| `.github/workflows/` | Dependabot config + GitHub Pages deploy workflow |
-
-Legacy Grunt/GitBook build files and the abandoned `en/`, `tel/`, `assests/`
-stubs were removed in 2026; the history is preserved in git.
-
-## Reading
-
-Open https://svenkatreddy.github.io/Ramayana_Book/ — pick a kāṇḍa, read
-verse-by-verse with translations stacked below the Sanskrit, toggle languages
-from the reader bar, and use search (works in Devanagari and English).
-
-## Development
-
-Reader site (Node 24, see `.nvmrc`):
-
-```bash
-cd site
-npm install
-npm run dev     # http://localhost:4321/Ramayana_Book/
-npm run build   # production build to site/dist/
-```
-
-Validate the Sanskrit content (no dependencies):
-
-```bash
-node scripts/validate-content.js
-```
-
-Regenerate the combined `*_all.json` bundles deterministically:
-
-```bash
-python3 scripts/regen_all_bundles.py
-```
-
-## Translations
-
-English translations are supplied via the MIT-licensed
-[Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset),
-which credits M. N. Dutt's English translation (1891–1894), IIT Kanpur's
-Valmiki Ramayanam, and Gyaandweep. Coverage: 23,075 of 23,334 verses (98.9%);
-the remainder are mostly colophons, not untranslated verses. Built with
-`scripts/build-translations.py`.
-
-## Deployment
-
-- **Production:** GitHub Pages via `.github/workflows/deploy-pages.yml`
-  (builds `site/` on every push to `master`).
-- **PR previews:** Vercel — project root directory `site`, env `SITE_BASE=/`
-  (the Astro config defaults to the `/Ramayana_Book/` base Pages needs).
+**Read it:** https://svenkatreddy.github.io/Ramayana_Book/ (preview builds on Vercel for every PR)
 
 ## Sources
 
-- Sanskrit text: [Valmiki Ramayanam, IIT Kanpur](https://www.valmiki.iitk.ac.in/)
-  (critical edition).
-- English: see Translations above.
+**Sanskrit:** [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia). Three chapters were restored akshara-for-akshara from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/) (critical edition) where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
+
+**English:** [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT licence) — from M.N. Dutt's translation (1891–1894), IIT Kanpur, and Gyaandweep. Covers ~99% of verses.
+
+**Telugu:** [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA) — 322 verses across 10 Bala Kanda sargas so far; the wiki's Telugu translation is still in progress.
+
+We only publish cleanly-licensed, human-produced translations — never machine-translated.
+
+## Repository layout
+
+```
+san/                    Sanskrit text: 7 kandas × chapter JSON files
+translations/
+  en/                   English, verse-aligned (645 chapters)
+  te/                   Telugu, verse-aligned (10 chapters so far)
+  README.md             Sourcing policy and per-language provenance
+site/                   Astro + Starlight reader (deploys to GitHub Pages)
+scripts/
+  validate-content.js   Checks all 645 chapters (run before every change)
+  build-translations.py Build English translations from the dataset
+  build-telugu.py       Build Telugu translations from Wikisource
+```
+
+## Development
+
+```bash
+cd site && npm install && npm run dev     # local preview
+node scripts/validate-content.js          # must pass: 0 errors, 0 warnings
+```
+
+The site is generated: `site/scripts/sync-content.mjs` converts `san/` + `translations/` into Starlight pages. Don't edit generated files under `site/src/content/docs/`.
+
+## The seven kāṇḍas
+
+- **Bāla Kāṇḍa** — the book of childhood (77 sargas)
+- **Ayodhyā Kāṇḍa** — the book of Ayodhya (119 sargas)
+- **Araṇya Kāṇḍa** — the book of the forest (75 sargas)
+- **Kiṣkindhā Kāṇḍa** — the book of the monkey kingdom (67 sargas)
+- **Sundara Kāṇḍa** — the book of beauty (68 sargas)
+- **Yuddha Kāṇḍa** — the book of war (128 sargas)
+- **Uttara Kāṇḍa** — the last book (111 sargas)
+
+## Contributing
+
+Found a mistake in a verse or translation? [Open an issue](../../issues). We welcome corrections backed by a credible source — especially complete, openly-licensed Telugu or Hindi translations.
