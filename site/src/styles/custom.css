@@ -184,19 +184,21 @@ html.hide-en .verse-tr[data-lang='en'] {
 
 .lang-pill {
   font: inherit;
-  line-height: 1.4;
   border: 1px solid var(--sl-color-gray-5);
   background: transparent;
   color: var(--sl-color-gray-2);
   border-radius: 999px;
-  padding: 0.32rem 0.95rem;
+  padding: 0 0.95rem;
+  height: 2.1rem;
   cursor: pointer;
-  /* Center the label identically for every script: button text otherwise
-     follows font-metric baselines that differ between Devanagari and Latin,
-     which reads as vertical misalignment between the pills. */
+  /* Fixed height + flex centering: different scripts (Devanagari, Telugu,
+     Latin) have different font baselines, so line-height centering alone
+     reads as vertical misalignment between pills. */
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .lang-pill:hover {
