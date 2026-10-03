@@ -193,14 +193,20 @@ html.hide-en .verse-tr[data-lang='en'] {
   padding: 0 0.95rem;
   height: 2.1rem;
   cursor: pointer;
-  /* Fixed height + flex centering: different scripts (Devanagari, Telugu,
-     Latin) have different font baselines, so line-height centering alone
-     reads as vertical misalignment between pills. */
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
   vertical-align: middle;
+}
+
+/* Optical alignment: Devanagari's headline (shirorekha) makes the glyphs
+   sit visually high in the line box. Nudge the text down slightly so
+   संस्कृतम् aligns with the Latin/Telugu pills. */
+.lang-pill > span {
+  display: inline-block;
+  line-height: 1;
+  transform: translateY(0.06em);
 }
 
 .lang-pill:hover {

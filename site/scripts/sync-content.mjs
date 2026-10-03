@@ -91,10 +91,10 @@ function loadTranslations(kandaDir, num) {
 /** Language toggle bar injected at the top of every chapter page. */
 function readerBar() {
   const pills = [
-    `<button type="button" class="lang-pill is-on" data-lang="sa" aria-pressed="true">संस्कृतम्</button>`,
+    `<button type="button" class="lang-pill is-on" data-lang="sa" aria-pressed="true"><span>संस्कृतम्</span></button>`,
     ...LANGS.map(
       (L) =>
-        `<button type="button" class="lang-pill is-on" data-lang="${L.code}" aria-pressed="true">${esc(L.pill)}</button>`,
+        `<button type="button" class="lang-pill is-on" data-lang="${L.code}" aria-pressed="true"><span>${esc(L.pill)}</span></button>`,
     ),
   ].join('\n  ');
   return `<div class="reader-bar" role="toolbar" aria-label="Reading languages">
@@ -341,7 +341,7 @@ function kandaSummaryHtml(kandaDir) {
     { code: 'hi', label: 'हिन्दी' },
   ];
   const pills = langs.map((l, i) =>
-    `<button type="button" class="lang-pill${i === 0 ? ' is-on' : ''}" data-summary-lang="${l.code}" aria-pressed="${i === 0}">${l.label}</button>`
+    `<button type="button" class="lang-pill${i === 0 ? ' is-on' : ''}" data-summary-lang="${l.code}" aria-pressed="${i === 0}"><span>${l.label}</span></button>`
   ).join('\n');
   const panels = langs.map((l, i) => {
     const s = data[l.code];
@@ -381,7 +381,7 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 ${cards}
 </CardGrid>
 
-<p class="home-refs"><a href="./translation-sources/">Translation sources</a> · <a href="./references/">References</a></p>
+<p class="home-refs"><a href="./translation-sources/">Translation sources</a> · <a href="./references/">References</a> · <a href="./contributors/">Contributors</a></p>
 `;
 }
 
@@ -473,10 +473,45 @@ See [Translation sources](./translation-sources/) for the short version of the c
 fs.writeFileSync(path.join(DOCS, 'index.mdx'), heroPage(totalChapters, totalSlokas));
 pages++;
 
+function contributorsPage() {
+  return `---
+title: Contributors
+description: The people behind the Ramayana Book project.
+---
+
+# Contributors
+
+## Project
+
+- **[svenkatreddy](https://github.com/svenkatreddy)** — Project maintainer and creator
+
+## Code contributors
+
+- **[accessvasu](https://github.com/accessvasu)**
+- **[puthiyavan](https://github.com/puthiyavan)**
+- **[pranavsutar](https://github.com/pranavsutar)**
+- **[vedupraity](https://github.com/vedupraity)**
+
+## Translation sources
+
+- **Sanskrit:** [Sanskrit Wikisource](https://sa.wikisource.org/) contributors (Wikimedia)
+- **English:** [M.N. Dutt](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (1891–1894), via the Valmiki Ramayan Dataset (MIT)
+- **Telugu:** [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA)
+- **Hindi:** Chaturvedi Dwarka Prasad Sharma
+
+---
+
+Want to contribute? See the [gaps and how to help](https://github.com/svenkatreddy/Ramayana_Book#gaps--contributing) in the README.
+`;
+}
+
 fs.writeFileSync(path.join(DOCS, 'translation-sources.md'), translationSourcesPage());
 pages++;
 
 fs.writeFileSync(path.join(DOCS, 'references.md'), referencesPage());
+pages++;
+
+fs.writeFileSync(path.join(DOCS, 'contributors.md'), contributorsPage());
 pages++;
 
 for (const w of warnings) console.warn('warning:', w);
