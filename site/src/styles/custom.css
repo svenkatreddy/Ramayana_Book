@@ -196,15 +196,19 @@ html.hide-hi .verse-tr[data-lang='hi'] {
   padding: 0 0.95rem;
   height: 2.1rem;
   cursor: pointer;
-  display: inline-grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
   vertical-align: middle;
 }
 
+/* Optical centering: Devanagari's headline makes glyphs sit visually high.
+   Nudge all pill labels down slightly for cross-script alignment. */
 .lang-pill > span {
-  line-height: 1.2;
-  display: block;
+  display: inline-block;
+  line-height: 1;
+  transform: translateY(0.08em);
 }
 
 
