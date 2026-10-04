@@ -182,51 +182,6 @@ for (const kanda of KANDAS) {
   pages++;
 }
 
-<<<<<<< HEAD
-function translationSourcesPage() {
-  // The short, canonical attribution for the site's texts and translations.
-  return `---
-title: Translation sources
-description: Where the Sanskrit text and translations on this site come from.
----
-
-# Translation sources
-
-Sanskrit: [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia). Three chapters were restored akshara-for-akshara from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/) (critical edition) where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31.
-English: [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT), from M.N. Dutt's translation (1891–1894), IIT Kanpur, and Gyaandweep.
-Telugu: [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA) — 322 verses so far; the wiki's Telugu translation is still in progress.
-
-Telugu and further languages will be credited here as they are added. This
-site only publishes translations that are cleanly licensed and
-human-produced — never machine-translated.
-`;
-}
-
-function referencesPage() {
-  return `---
-title: References
-description: Sources, editions, and credits behind this reader.
----
-
-# References
-
-## Texts and translations
-
-- **Sanskrit:** [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia). Three chapters were restored akshara-for-akshara from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/) (critical edition) where this repo's copies were corrupt: Kishkindha 11, Yuddha 25, and Yuddha 31 (see issue #31).
-- **English:** [Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset) (MIT licence), from M.N. Dutt's English translation (1891–1894), IIT Kanpur, and Gyaandweep.
-- **Telugu:** [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA) — 322 verses across 10 Bala Kanda sargas so far; the wiki's Telugu translation is still in progress.
-
-## This site
-
-- Reader built with [Astro Starlight](https://starlight.astro.build/).
-- Sanskrit UI strings, reading-progress tracking, and the themes (light, dark, and the तालपत्रम् palm-leaf manuscript theme) are this project's own additions.
-
-See [Translation sources](./translation-sources/) for the short version of the credits.
-`;
-}
-
-=======
->>>>>>> origin/master
 fs.writeFileSync(path.join(DOCS, 'index.mdx'), heroPage(totalChapters, totalSlokas));
 pages++;
 
