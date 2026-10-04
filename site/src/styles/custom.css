@@ -8,6 +8,10 @@
 @import '@fontsource/noto-serif-devanagari/400.css';
 @import '@fontsource/noto-serif-devanagari/600.css';
 @import '@fontsource/yatra-one/400.css';
+@import '@fontsource/noto-sans-telugu/400.css';
+@import '@fontsource/noto-sans-telugu/500.css';
+@import '@fontsource/noto-sans-devanagari/400.css';
+@import '@fontsource/noto-sans-devanagari/500.css';
 
 :root {
   --sl-font:
@@ -46,6 +50,35 @@
   --sl-color-gray-5: #292524;
   --sl-color-gray-6: #1c1917;
   --sl-color-black: #0c0a09;
+}
+
+:root[data-theme='talapatra'] {
+  /* Palm-leaf manuscript (तालपत्रम्): aged leaf, iron-ink browns,
+     vermillion-red accent like traditional manuscript pigment. */
+  --sl-color-accent-low: #f0dfae;
+  --sl-color-accent: #8f3a17;
+  --sl-color-accent-high: #5f2410;
+  --sl-color-white: #2e1f0e;
+  --sl-color-gray-1: #4a3519;
+  --sl-color-gray-2: #6b532f;
+  --sl-color-gray-3: #8a6f45;
+  --sl-color-gray-4: #a68c5f;
+  --sl-color-gray-5: #c9b183;
+  --sl-color-gray-6: #dfc998;
+  --sl-color-black: #e7d3a1;
+}
+
+/* Faint leaf-fibre texture over the manuscript background. */
+:root[data-theme='talapatra'] body {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent 0 5px,
+    rgb(120 84 40 / 0.055) 5px 6px
+  );
+}
+
+:root[data-theme='talapatra'] .lang-pill.is-on {
+  color: #fdf6e3;
 }
 
 /* Wider reading column, generous line-height for verse readability. */
@@ -120,19 +153,21 @@ a.verse-num:hover {
 
 /* Future third language, e.g. Telugu or Hindi — add a font rule here:
 .verse-tr[data-lang='te'] { font-family: 'Noto Sans Telugu', var(--sl-font); }
-.verse-tr[data-lang='hi'] { font-family: var(--verse-font); }
+.verse-tr[data-lang='hi'] { font-family: 'Noto Sans Devanagari', var(--sl-font); }
 */
 
 /* Reader-bar toggles hide languages via classes on <html>. */
 html.hide-sa .verse-sa,
-html.hide-en .verse-tr[data-lang='en'] {
+html.hide-en .verse-tr[data-lang='en'],
+html.hide-te .verse-tr[data-lang='te'],
+html.hide-hi .verse-tr[data-lang='hi'] {
   display: none;
 }
 
 /* ---- Reader language bar ---- */
 .reader-bar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   gap: 0.5rem;
   margin: 0 0 1.75rem;
@@ -141,23 +176,42 @@ html.hide-en .verse-tr[data-lang='en'] {
   border: 1px solid var(--sl-color-gray-5);
   border-radius: 0.8rem;
   font-size: 0.85rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .reader-bar-label {
   color: var(--sl-color-gray-3);
   margin-inline-end: 0.2rem;
+  line-height: 1; /* tighten the box so flex centering lands on the text */
 }
 
 .lang-pill {
   font: inherit;
-  line-height: 1.4;
+  font-family: 'Noto Sans Devanagari', 'Noto Sans Telugu', var(--sl-font);
   border: 1px solid var(--sl-color-gray-5);
   background: transparent;
   color: var(--sl-color-gray-2);
   border-radius: 999px;
-  padding: 0.32rem 0.95rem;
+  padding: 0 0.95rem;
+  height: 2.1rem;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  vertical-align: middle;
 }
+
+/* Optical centering: Devanagari's headline makes glyphs sit visually high.
+   Nudge all pill labels down slightly for cross-script alignment. */
+.lang-pill > span {
+  display: inline-block;
+  line-height: 1;
+  transform: translateY(0.15em);
+}
+
+
 
 .lang-pill:hover {
   border-color: var(--sl-color-accent);
@@ -174,13 +228,42 @@ html.hide-en .verse-tr[data-lang='en'] {
   color: #1c1917;
 }
 
-/* Translation credit footer on chapter pages. */
-.tr-credit {
-  margin-top: 3rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--sl-color-gray-5);
-  font-size: 0.8rem;
+/* Home page: quiet link line to the translation-sources and references pages. */
+.home-refs {
+  text-align: center;
+  margin-top: 2.5rem;
+  font-size: 0.9rem;
   color: var(--sl-color-gray-3);
+}
+
+/* Reading progress: resume pill + sidebar checkmarks (localStorage). */
+.resume-pill {
+  position: fixed;
+  inset-inline-end: 1rem;
+  bottom: 1rem;
+  z-index: 50;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.6rem 1.15rem;
+  border-radius: 999px;
+  background: var(--sl-color-accent);
+  border: 1px solid var(--sl-color-accent);
+  color: #fff;
+  box-shadow: 0 4px 18px rgb(0 0 0 / 0.28);
+  cursor: pointer;
+}
+
+:root[data-theme='dark'] .resume-pill {
+  color: #1c1917;
+}
+
+:root[data-theme='talapatra'] .resume-pill {
+  color: #fdf6e3;
+}
+
+.rp-done {
+  color: var(--sl-color-accent);
+  font-weight: 700;
 }
 
 /* Kanda landing pages: section headings coming from the legacy READMEs
@@ -190,10 +273,32 @@ html.hide-en .verse-tr[data-lang='en'] {
   margin-top: 2.4rem;
 }
 
+/* Kanda summary language tabs */
+.kanda-summary {
+  margin: 1.5rem 0;
+}
+.kanda-summary .reader-bar {
+  margin-bottom: 1rem;
+}
+.summary-panel p {
+  line-height: 1.7;
+}
+.summary-panel[hidden] {
+  display: none;
+}
+
 /* Hero display face, used sparingly. */
 .hero h1,
 [data-page-title] {
   font-family: 'Yatra One', var(--verse-font);
   font-weight: 400;
   letter-spacing: 0.01em;
+}
+
+/* Theme picker: move from the bottom of the sidebar to the top. */
+.sidebar-content > .mobile-preferences {
+  order: -1;
+  border-top: 0;
+  border-bottom: 1px solid var(--sl-color-gray-6);
+  margin-bottom: 0.5rem;
 }

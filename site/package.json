@@ -8,15 +8,21 @@
     "dev": "npm run sync && astro dev",
     "sync": "node scripts/sync-content.mjs",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "node --test 'tests/*.test.mjs'"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.5",
     "@fontsource/inter": "^5.3.0",
+    "@fontsource/noto-sans-devanagari": "^5.3.0",
+    "@fontsource/noto-sans-telugu": "^5.3.0",
     "@fontsource/noto-serif-devanagari": "^5.3.0",
     "@fontsource/tiro-devanagari-sanskrit": "^5.3.0",
     "@fontsource/yatra-one": "^5.3.0",
     "astro": "^7.3.5",
     "sharp": "^0.35.5"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

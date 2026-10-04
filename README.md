@@ -1,47 +1,90 @@
-Ramayana Book
-=============
+# Ramayana Book — रामायणम्
 
-**Introduction:**
+**Live reader:** https://svenkatreddy.github.io/Ramayana_Book/
 
+The complete Vālmīki Rāmāyaṇa — 645 sargas across seven kāṇḍas — as structured
+data and a modern web reader, in Sanskrit with verse-aligned translations.
 
-Book about Ramayana ( One of the two great epics of Hinduism ) ascribed by Valmiki
+## Repository layout
 
-The Ramayana consists of 24,000 verses in seven books (kāṇḍas) and 500 cantos (sargas)
+| Path | What it is |
+| ---- | ---------- |
+| `san/` | Sanskrit source of truth: per-chapter JSON + Markdown, plus combined `*_all.json` bundles |
+| `translations/` | Verse-aligned translations (`en/` English, 98.9% coverage). New languages welcome — see `translations/README.md` |
+| `site/` | Astro Starlight reader: stacked Sanskrit + translations, full-text search, light/dark/palm-leaf themes |
+| `scripts/` | Content tooling (all dependency-free or stdlib-only) |
+| `.github/workflows/` | Dependabot config + GitHub Pages deploy workflow |
 
-Ramayana tells the story of Rama (an avatar of the Hindu supreme-god Vishnu), whose wife Sita is abducted by Ravana, the king of Lanka (current day Sri Lanka). Thematically, the Ramayana explores human values and the concept of dharma.
+Legacy Grunt/GitBook build files and the abandoned `en/`, `tel/`, `assests/`
+stubs were removed in 2026; the history is preserved in git.
 
-The seven kandas (books) of Ramayana are as follows:
+## Reading
 
-  - Bāla Kāṇḍa (Book of childhood)
-  - Ayodhya Kāṇḍa (Book of ayodhya)
-  - Araṇya Kāṇḍa (Book of the forest)
-  - Kishkindha Kāṇḍa (Book of the monkey kingdom)
-  - Sundara Kāṇḍa (Book of beauty)
-  - Yuddha Kāṇḍa (Book of war, also known as Lanka Kanda)
-  - Uttara Kāṇḍa (Last book)
+Open https://svenkatreddy.github.io/Ramayana_Book/ — pick a kāṇḍa, read
+verse-by-verse with translations stacked below the Sanskrit, toggle languages
+from the reader bar, and use search (works in Devanagari and English).
 
-**Development**
+## Development
 
-Goal of this repo is to create a portable version of epic Ramayana in any format (html,pdf,word, JSON, API etc) to preserve one of the best books ever written in hindu mythology.
+Reader site (Node 24, see `.nvmrc`):
 
-We would appreciate if anyone could provide good resources.
+```bash
+cd site
+npm install
+npm run dev     # http://localhost:4321/Ramayana_Book/
+npm run build   # production build to site/dist/
+```
 
-### Presently working on ###
+Validate the Sanskrit content (no dependencies):
 
-  - Collecting Resources for translating sanskrit version to english, telugu ( Any help is greatly appreciated )
-  - Initial Api Version of the book ( Moving data to MongoDB and website for API )
+```bash
+node scripts/validate-content.js
+```
 
-### Final goals ###
+Regenerate the combined `*_all.json` bundles deterministically:
 
-  -  Release pdf,html version of Ramayana in sanskrit,english and telugu ( Will add more languages as more people contributing )
-  -  Develop API so anyone can use Ramayana in their own application
+```bash
+python3 scripts/regen_all_bundles.py
+```
 
-### Achieved Goals ###
-  - Sanskrit version of the book is ready [Click Here](http://svenkatreddy.github.io/Ramayana_Book/).
-  - Website showcasing the html version of the book (sanskrit)
-  - Please report any changes / enchancements for sanskrit version 
-  
-### Screenshots ( Mobile ) ###
+## Translations
 
- <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana01.jpg" width="230" height="360">&nbsp;   <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana02.jpg" width="230" height="360">&nbsp;   <img src="https://raw.githubusercontent.com/svenkatreddy/Ramayana_Book/master/assests/Ramayana03.jpg" width="230" height="360">
- 
+English translations are supplied via the MIT-licensed
+[Valmiki Ramayan Dataset](https://github.com/Ashutosh-Vijay/Valmiki_Ramayan_Dataset),
+which credits M. N. Dutt's English translation (1891–1894), IIT Kanpur's
+Valmiki Ramayanam, and Gyaandweep. Coverage: 23,075 of 23,334 verses (98.9%);
+the remainder are mostly colophons, not untranslated verses. Built with
+`scripts/build-translations.py`.
+
+## Deployment
+
+- **Production:** GitHub Pages via `.github/workflows/deploy-pages.yml`
+  (builds `site/` on every push to `master`).
+- **PR previews:** Vercel — project root directory `site`, env `SITE_BASE=/`
+  (the Astro config defaults to the `/Ramayana_Book/` base Pages needs).
+
+## Sources
+
+- Sanskrit text: [Sanskrit Wikisource](https://sa.wikisource.org/) (Wikimedia).
+  Three chapters restored from [IIT Kanpur's Valmiki Ramayanam](https://www.valmiki.iitk.ac.in/).
+- English: see Translations above.
+- Telugu: [Telugu Wikisource](https://te.wikisource.org/wiki/వాల్మీకి_రామాయణము) contributors (CC BY-SA).
+- Hindi: Chaturvedi Dwarka Prasad Sharma's Hindi translation.
+
+## Gaps & Contributing
+
+We need your help! Current translation coverage:
+
+| Language | Verses | Coverage | Gap |
+|----------|--------|----------|-----|
+| Sanskrit | 23,334 | 100% | Complete |
+| English | 23,075 | 98.9% | 259 verses (mostly colophons) |
+| Hindi | 13,030 | 55.8% | ~10,300 verses |
+| Telugu | 322 | 1.4% | ~23,000 verses |
+
+**How to contribute:**
+- **Translate:** Help fill Hindi/Telugu gaps. We only accept cleanly-licensed, human-produced translations — never machine-translated.
+- **Proofread:** The Hindi OCR has errors; corrections welcome.
+- **Code:** Reader improvements, themes, accessibility — see open issues.
+
+See [Contributors](https://svenkatreddy.github.io/Ramayana_Book/contributors/) for the people behind this project.
