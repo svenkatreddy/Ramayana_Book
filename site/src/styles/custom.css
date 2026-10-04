@@ -208,7 +208,7 @@ html.hide-hi .verse-tr[data-lang='hi'] {
 .lang-pill > span {
   display: inline-block;
   line-height: 1;
-  transform: translateY(0.08em);
+  transform: translateY(0.15em);
 }
 
 
