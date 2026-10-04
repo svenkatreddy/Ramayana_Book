@@ -71,8 +71,8 @@ function read(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){
 function apply(){var h=read(),root=document.documentElement;
 root.classList.toggle('hide-sa',h['sa']===false);
 ${LANGS.map((L) => `root.classList.toggle('hide-${L.code}',h['${L.code}']===false);`).join('\n')}
-document.querySelectorAll('.lang-pill').forEach(function(b){var on=h[b.dataset.lang]!==false;b.classList.toggle('is-on',on);b.setAttribute('aria-pressed',String(on));});}
-document.addEventListener('click',function(e){var b=e.target.closest('.lang-pill');if(!b)return;var h=read(),l=b.dataset.lang,next=!(h[l]!==false);if(!next){var pills=document.querySelectorAll('.lang-pill'),any=false;for(var i=0;i<pills.length;i++){if(pills[i]!==b&&pills[i].classList.contains('is-on')){any=true;break;}}if(!any)return;}h[l]=next;try{localStorage.setItem(KEY,JSON.stringify(h))}catch(e){}apply();});
+document.querySelectorAll('.lang-pill[data-lang]').forEach(function(b){var on=h[b.dataset.lang]!==false;b.classList.toggle('is-on',on);b.setAttribute('aria-pressed',String(on));});}
+document.addEventListener('click',function(e){var b=e.target.closest('.lang-pill[data-lang]');if(!b)return;var h=read(),l=b.dataset.lang,next=!(h[l]!==false);if(!next){var pills=document.querySelectorAll('.lang-pill[data-lang]'),any=false;for(var i=0;i<pills.length;i++){if(pills[i]!==b&&pills[i].classList.contains('is-on')){any=true;break;}}if(!any)return;}h[l]=next;try{localStorage.setItem(KEY,JSON.stringify(h))}catch(e){}apply();});
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();})();
 </script>`;
 }

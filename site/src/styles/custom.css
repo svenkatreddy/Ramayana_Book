@@ -186,6 +186,7 @@ html.hide-en .verse-tr[data-lang='en'] {
 
 .lang-pill {
   font: inherit;
+  font-family: 'Noto Sans Devanagari', 'Noto Sans Telugu', var(--sl-font);
   border: 1px solid var(--sl-color-gray-5);
   background: transparent;
   color: var(--sl-color-gray-2);
@@ -200,14 +201,7 @@ html.hide-en .verse-tr[data-lang='en'] {
   vertical-align: middle;
 }
 
-/* Optical alignment: Devanagari's headline (shirorekha) makes the glyphs
-   sit visually high in the line box. Nudge the text down slightly so
-   संस्कृतम् aligns with the Latin/Telugu pills. */
-.lang-pill > span {
-  display: inline-block;
-  line-height: 1;
-  transform: translateY(0.06em);
-}
+
 
 .lang-pill:hover {
   border-color: var(--sl-color-accent);
