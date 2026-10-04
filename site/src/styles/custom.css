@@ -196,11 +196,15 @@ html.hide-hi .verse-tr[data-lang='hi'] {
   padding: 0 0.95rem;
   height: 2.1rem;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  place-items: center;
   line-height: 1;
   vertical-align: middle;
+}
+
+.lang-pill > span {
+  line-height: 1.2;
+  display: block;
 }
 
 
