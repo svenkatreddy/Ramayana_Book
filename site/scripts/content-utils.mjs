@@ -54,10 +54,10 @@ export const esc = (s) =>
 /** Language toggle bar injected at the top of every chapter page. */
 export function readerBar() {
   const pills = [
-    `<button type="button" class="lang-pill is-on" data-lang="sa" aria-pressed="true"><span>संस्कृतम्</span></button>`,
+    `<button type="button" class="lang-pill is-on" data-lang="sa" aria-pressed="true">संस्कृतम्</button>`,
     ...LANGS.map(
       (L) =>
-        `<button type="button" class="lang-pill is-on" data-lang="${L.code}" aria-pressed="true"><span>${esc(L.pill)}</span></button>`,
+        `<button type="button" class="lang-pill is-on" data-lang="${L.code}" aria-pressed="true">${esc(L.pill)}</button>`,
     ),
   ].join('\n  ');
   return `<div class="reader-bar" role="toolbar" aria-label="Reading languages">
@@ -230,7 +230,7 @@ export function kandaSummaryHtml(kandaDir) {
     { code: 'hi', label: 'हिन्दी' },
   ];
   const pills = langs.map((l, i) =>
-    `<button type="button" class="lang-pill${i === 0 ? ' is-on' : ''}" data-summary-lang="${l.code}" aria-pressed="${i === 0}"><span>${l.label}</span></button>`
+    `<button type="button" class="lang-pill${i === 0 ? ' is-on' : ''}" data-summary-lang="${l.code}" aria-pressed="${i === 0}">${l.label}</button>`
   ).join('\n');
   const panels = langs.map((l, i) => {
     const s = data[l.code];

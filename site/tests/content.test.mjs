@@ -5,7 +5,7 @@
  * Run: `npm test` (node --test tests/, Node 24 built-in runner, no deps).
  *
  * These lock in behaviors Smarty has explicitly asked for or flagged:
- *  - pill text wrapped in <span> (Devanagari optical alignment fix, #42)
+ *  - pill buttons with direct text content, flexbox vertical centering
  *  - language pills can never be fully deselected
  *  - kanda summaries: 10 paragraphs x 4 languages, no em dashes
  *  - Hindi credit is a plain credit, never "used with permission" wording
@@ -125,11 +125,11 @@ describe('convertChapter', () => {
 describe('readerBar', () => {
   const bar = readerBar();
 
-  it('renders one span-wrapped pill per language', () => {
-    // The span wrapper is the Devanagari optical-alignment fix (PR #42).
-    assert.match(bar, /<button type="button" class="lang-pill is-on" data-lang="sa" aria-pressed="true"><span>संस्कृतम्<\/span><\/button>/);
+  it('renders one pill per language with direct text content', () => {
+    // Pills use direct text content; flexbox handles vertical centering.
+    assert.match(bar, /<button type="button" class="lang-pill is-on" data-lang="sa" aria-pressed="true">संस्कृतम्<\/button>/);
     for (const L of LANGS) {
-      assert.match(bar, new RegExp(`data-lang="${L.code}"[^>]*><span>`));
+      assert.match(bar, new RegExp(`data-lang="${L.code}"[^>]*>${L.pill}<`));
     }
   });
 

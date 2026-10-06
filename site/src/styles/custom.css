@@ -203,24 +203,6 @@ html.hide-hi .verse-tr[data-lang='hi'] {
   vertical-align: middle;
 }
 
-/* Optical centering: Devanagari's headline concentrates visual mass above the
-   geometric center, so labels need a downward nudge. Measured from rendered
-   output (headless Chromium, self-hosted Noto Sans Devanagari / Noto Sans
-   Telugu at 13.6px): with the uniform 0.15em nudge, the white-ink centroid
-   sat 1.06px high for Sanskrit and 2.29px high for Hindi. Per-language
-   nudges bring all four labels within 0.3px of pill center. */
-.lang-pill > span {
-  display: inline-block;
-  line-height: 1;
-  transform: translateY(0.15em);
-}
-.lang-pill[data-lang="sa"] > span {
-  transform: translateY(0.22em);
-}
-.lang-pill[data-lang="hi"] > span {
-  transform: translateY(0.3em);
-}
-
 
 
 .lang-pill:hover {
