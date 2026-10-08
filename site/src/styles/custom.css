@@ -203,6 +203,25 @@ html.hide-hi .verse-tr[data-lang='hi'] {
   vertical-align: middle;
 }
 
+/* Per-language optical centering of the pill LABEL.
+ * inline-flex centers the font's em box, but Devanagari/Telugu glyph ink
+ * sits mostly above the baseline, so the visible ink renders high. The nudge
+ * MUST target the label <span>, not the pill: translating the pill moves the
+ * whole button (border included) without changing where the ink sits inside
+ * it. Values derived from the actual bundled @fontsource woff2 files
+ * (Noto Sans Devanagari 400 devanagari+latin subsets, Noto Sans Telugu 400)
+ * with real complex-text shaping (HarfBuzz) plus CSS line-box geometry at
+ * 13.6px (0.85rem): measured ink-high offsets sa -0.48px, en -0.23px,
+ * te -2.23px, hi -1.78px (2-decimal rounding leaves <=0.06px residual).
+ * Re-derive if the fonts, labels, or pill font-size change.
+ * Covers reader pills (data-lang) and kanda summary pills
+ * (data-summary-lang): same four labels, same fonts. */
+.lang-pill > span { display: inline-block; }
+.lang-pill[data-lang="sa"] > span, .lang-pill[data-summary-lang="sa"] > span { transform: translateY(0.04em); }
+.lang-pill[data-lang="en"] > span, .lang-pill[data-summary-lang="en"] > span { transform: translateY(0.02em); }
+.lang-pill[data-lang="te"] > span, .lang-pill[data-summary-lang="te"] > span { transform: translateY(0.16em); }
+.lang-pill[data-lang="hi"] > span, .lang-pill[data-summary-lang="hi"] > span { transform: translateY(0.13em); }
+
 
 
 .lang-pill:hover {
