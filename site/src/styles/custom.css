@@ -203,6 +203,16 @@ html.hide-hi .verse-tr[data-lang='hi'] {
   vertical-align: middle;
 }
 
+/* Starlight's content-rhythm rule
+ *   .sl-markdown-content :not(a,strong,em,del,span,input,code,br)
+ *     +:not(a,strong,em,del,span,input,code,br){margin-top:var(--sl-content-gap-y)}
+ * matches button+button, so the 2nd/3rd/4th pills get margin-top:1rem while
+ * the Sanskrit pill (preceded by the excluded label <span>) does not. With
+ * align-items:center the margin box centers, dropping English/Telugu/Hindi
+ * 8px below Sanskrit. This was the real misalignment all along — not the
+ * fonts. Kill it; specificity (0,3,0) beats Starlight's (0,1,2). */
+.sl-markdown-content .reader-bar .lang-pill { margin-top: 0; }
+
 /* Per-language optical centering of the pill LABEL.
  * inline-flex centers the font's em box, but Devanagari/Telugu glyph ink
  * sits mostly above the baseline, so the visible ink renders high. The nudge
@@ -211,14 +221,15 @@ html.hide-hi .verse-tr[data-lang='hi'] {
  * it. Values derived from the actual bundled @fontsource woff2 files
  * (Noto Sans Devanagari 400 devanagari+latin subsets, Noto Sans Telugu 400)
  * with real complex-text shaping (HarfBuzz) plus CSS line-box geometry at
- * 13.6px (0.85rem): measured ink-high offsets sa -0.48px, en -0.23px,
- * te -2.23px, hi -1.78px (2-decimal rounding leaves <=0.06px residual).
- * Re-derive if the fonts, labels, or pill font-size change.
+ * 13.6px (0.85rem). Verified against a real Chromium screenshot of the live
+ * page (pixel-measured ink centers vs pill centers): sa/te/hi residuals
+ * <0.5px; en measured 1.5px high in Chromium, so its nudge was raised from
+ * 0.02em to 0.13em. Re-derive if the fonts, labels, or pill font-size change.
  * Covers reader pills (data-lang) and kanda summary pills
  * (data-summary-lang): same four labels, same fonts. */
 .lang-pill > span { display: inline-block; }
 .lang-pill[data-lang="sa"] > span, .lang-pill[data-summary-lang="sa"] > span { transform: translateY(0.04em); }
-.lang-pill[data-lang="en"] > span, .lang-pill[data-summary-lang="en"] > span { transform: translateY(0.02em); }
+.lang-pill[data-lang="en"] > span, .lang-pill[data-summary-lang="en"] > span { transform: translateY(0.13em); }
 .lang-pill[data-lang="te"] > span, .lang-pill[data-summary-lang="te"] > span { transform: translateY(0.16em); }
 .lang-pill[data-lang="hi"] > span, .lang-pill[data-summary-lang="hi"] > span { transform: translateY(0.13em); }
 

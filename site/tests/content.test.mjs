@@ -262,8 +262,7 @@ describe('LANGS config', () => {
   });
 });
 
-describe('translation data smoke test', () => {
-  it('every English chapter file parses and carries a verses object', () => {
+describe('translation data smoke test', () => {  it('every English chapter file parses and carries a verses object', () => {
     const files = fs
       .readdirSync(path.join(REPO, 'translations', 'en'))
       .flatMap((kanda) =>
@@ -276,5 +275,38 @@ describe('translation data smoke test', () => {
       const d = JSON.parse(fs.readFileSync(f, 'utf8'));
       assert.ok(d.verses && typeof d.verses === 'object', `${f}: missing verses`);
     }
+  });
+});
+
+describe('pill CSS guards', () => {
+  const css = fs.readFileSync(
+    path.join(REPO, 'site', 'src', 'styles', 'custom.css'),
+    'utf8',
+  );
+
+  it('zeroes margin-top on pills (Starlight button+button rhythm leak)', () => {
+    // Starlight's `.sl-markdown-content :not(...)+:not(...){margin-top:...}`
+    // matches button+button, giving the 2nd/3rd/4th pills margin-top:1rem
+    // while the Sanskrit pill (preceded by the label <span>) gets none —
+    // with align-items:center that dropped them 8px below Sanskrit.
+    // This override must beat Starlight's (0,1,2) specificity.
+    assert.match(
+      css,
+      /\.sl-markdown-content\s+\.reader-bar\s+\.lang-pill\s*\{\s*margin-top:\s*0;?\s*\}/,
+    );
+  });
+
+  it('keeps per-language label nudges on the inner span, not the button', () => {
+    const expected = { sa: '0.04em', en: '0.13em', te: '0.16em', hi: '0.13em' };
+    for (const [code, nudge] of Object.entries(expected)) {
+      const re = new RegExp(
+        `\\.lang-pill\\[data-lang="${code}"\\] > span[^}]*` +
+          `transform:\\s*translateY\\(${nudge.replace('.', '\\.')}\\)`,
+      );
+      assert.match(css, re, `${code}: expected translateY(${nudge}) on the span`);
+    }
+    // No translateY may target the pill button itself.
+    assert.doesNotMatch(css, /\.lang-pill\s*\{[^}]*transform:/);
+    assert.doesNotMatch(css, /\.lang-pill\[data-lang[^\]]*\]\s*\{[^}]*transform:/);
   });
 });
